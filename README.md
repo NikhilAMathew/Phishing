@@ -4,6 +4,11 @@
 
 This phishing detection system using State-of-the-Art Artificial Intelligence and Machine Learning and this extension aims to detect phishing websites and warn the user. It is built with a objective of privacy, so that the extension is developed to protect users from potential phishing attacks. With the Anti-Phishing Extension, users can easily check the safety of the websites they visit.
 
+![OS](https://img.shields.io/badge/OS-Windows-green?style=flat&logo=Windows)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python%203.8-green.svg?logo=python)](https://www.python.org/)
+[![Maintenance](https://img.shields.io/badge/Maintained-yes-green.svg)](https://github.com/emalderson/ThePhish)
+[![Documentation](https://img.shields.io/badge/Documentation-*working-orange.svg?style=flat)](https://github.com/emalderson/ThePhish)
+
 ## Table of Contents
 
 1. [Features](#features)
