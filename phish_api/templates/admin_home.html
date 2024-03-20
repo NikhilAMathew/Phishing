@@ -1,0 +1,266 @@
+{% extends 'admin_layout.html' %}
+{% block body %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
+<style>
+  .card {
+    margin-bottom: 8px;
+    box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+    border-radius: 20px;
+  }
+
+  .card-header {
+    background-color: #E5E4E2;
+  }
+
+  .card-footer {
+    background-color: #E5E4E2;
+  }
+
+  .report-badge {
+    position: absolute;
+    right: 420px;
+    width: 25px;
+    height: 25px;
+    background: #36454F;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+
+  .modal-search {
+    position: absolute;
+    right: 420px;
+    width: 25px;
+    height: 25px;
+    background: #36454F;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+</style>
+<div class="main features">
+  <div style="margin-bottom:28px;"></div>
+
+  <div class="main-content">
+    <div class="heading">
+      <div class="items">
+        <div class="item" data-aos="zoom-in" data-aos-delay="150">
+          <div class="line">
+            <h2 class="count">{{ type_counts['URL'] }}</h2>
+            <span class="icon"><i class="fa-solid fa-link" style="filter: drop-shadow(2px 4px 2px gray);"></i></span>
+          </div>
+          <span class="desc">URL</span>
+        </div>
+        <div class="item" data-aos="zoom-in" data-aos-delay="150">
+          <div class="line">
+            <h2 class="count">{{ type_counts['Domain'] }}</h2>
+            <span class="icon"><i class="fa-solid fa-globe" style="filter: drop-shadow(2px 4px 2px gray);"></i></span>
+          </div>
+          <span class="desc">Domains</span>
+        </div>
+        <div class="item" data-aos="zoom-in" data-aos-delay="150">
+          <div class="line">
+            <h2 class="count">{{ type_counts['IP'] }}</h2>
+            <span class="icon"><i class="fa-solid fa-location-dot"
+                style="filter: drop-shadow(2px 4px 2px gray);"></i></span>
+          </div>
+          <span class="desc">IP</span>
+        </div>
+
+        <div class="item" data-aos="zoom-in" data-aos-delay="150">
+          <div class="line">
+            <h2 class="count">{{ csv_row_count }}</h2>
+            <span class="icon"><i class="fa-solid fa-triangle-exclamation"
+                style="filter: drop-shadow(2px 4px 2px gray);"></i></span>
+          </div>
+          <span class="desc">Total Reports Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content" data-aos="fade-in">
+      <div class="items">
+        <div class="item">
+          <div class="heading">
+            <h1 class="title"> <i class="fa-solid fa-clock-rotate-left"></i> History </h1>
+            <div class="icon"><a class="btn get-started-btn reply-button" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Manage</a></div>
+          </div>
+
+          <div class="card-form" data-aos="fade-up-right">
+            <div class="col-sm py-2 py-md-3">
+              <div class="card card-body mx-auto" style="justify-content: center;">
+                <table id="example" class="table table-striped ">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Date</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Value</th>
+                      <th scope="col">Category</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for row in data_csv %}
+                    <tr>
+                      <td>{{ row['date'] }}</td>
+                      <td>{{ row['type'] }}</td>
+                      <td>{{ row['value'] }}</td>
+                      <td>{{ row['category'] }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="item" data-aos="fade-in">
+          <div class="heading">
+            <h1 class="title">Recent Requests</h1>
+            <span class="report-badge"> {{ count }} </span>
+          </div>
+
+          {% if data %}
+          {% for report in data %}
+          <div class="card" data-aos="zoom-in" data-aos-delay="150">
+            <div class="card-header">
+              {{ report.category }}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"> Reported {{ report.type }} : {{ report.url }}</h5>
+              <p class="card-text">Reported by : {{ report.name }}, {{ report.email }}</p>
+
+              <form action="{{ url_for('confirm_item', item_id=report._id) }}" method="post" style="display:inline;">
+                <input type="hidden" name="timestamp" value="{{ report.date }}">
+                <input type="hidden" name="type" value="{{ report.type }}">
+                <input type="hidden" name="url" value="{{ report.url }}">
+                <input type="hidden" name="category" value="{{ report.category }}">
+                <button type="submit" class="btn btn-success"> <i class="fa-solid fa-check"></i> Confirm</button>
+              </form>
+
+              <form action="{{ url_for('delete_item', item_id=report._id) }}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger"> <i class="fa-solid fa-xmark"></i> Delete</button>
+              </form>
+
+            </div>
+            <div class="card-footer text-muted">
+              {{ report.date }}, {{ report.time }}
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <p align="center" style="color: red; font-size: 22px;">No reports available.</p>
+          {% endif %}
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"> <i class="fa-solid fa-clock-rotate-left"></i> Manage History
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form class="d-flex">
+            <button class="btn"><i class="fa-solid fa-magnifying-glass"></i> </button>
+            <input class="form-control me-2" id="tableSearch" type="text" placeholder="Type something to search..">
+          </form>
+
+
+          <table id="example" class="table table-striped ">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Value</th>
+                <th scope="col">Category</th>
+                <th scope="col">Edit</th>
+
+              </tr>
+            </thead>
+            <tbody id="myTable">
+              {% for row in data_csv %}
+              <tr>
+                <td>{{ row['date'] }}</td>
+                <td>{{ row['type'] }}</td>
+                <td>{{ row['value'] }}</td>
+                <td>{{ row['category'] }}</td>
+                <td> <button type="button" class="btn btn-secondary"> <i class="fa-solid fa-pen"></i> </button> </td>
+                <td> <button type="button" class="btn btn-danger"> <i class="fa-solid fa-trash"></i> </button> </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> <i class="fa-solid fa-xmark"></i>
+            Close</button>
+          <button type="button" class="btn btn-success" id="savechangesBtn" data-bs-dismiss="modal"> <i
+              class="fa-solid fa-check"></i> Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          You changed it successfully.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  let table = new DataTable('#example');
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("#tableSearch").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("#savechangesBtn").click(function () {
+      $('.toast').toast('show');
+    });
+  });
+</script>
+
+{% endblock %}

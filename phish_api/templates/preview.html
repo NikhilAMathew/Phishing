@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> {{ title }} </title>
+
+</head>
+
+<body>
+    {% block content %}
+    <div id="warning-message"> <h1 style="color: red;">FindPhish: DON'T CLICK anything. </h1></div>
+    <div id="preview-container">
+        {{ content | safe }}
+    </div>
+    {% endblock %}
+</body>
+
+</html>

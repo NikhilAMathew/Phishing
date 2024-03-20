@@ -1,0 +1,75 @@
+{% extends 'layout.html' %} {% block body %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+span{
+  color: #777;
+  font-size: 12px;
+  bottom: -28px;
+  position: relative;
+}
+
+.fa-eye {
+  position: absolute;
+  top:74px;
+  right:4%;
+  cursor: pointer;
+  color: #36454F;
+}
+
+.fa-eye-slash {
+  position: absolute;
+  top:74px;
+  right:4%;
+  cursor: pointer;
+  color: #36454F;
+}
+
+</style>
+
+<div>
+    <div class="form-box" data-aos="fade-zoom-in">
+            
+            <h1 style="margin-left: 70px; margin-top: 80px;">Admin Login</h1>
+
+        <form id="login" class="input-group" method="POST" action="{{ url_for('login') }}">
+
+            <input type="text" class="input-field" id="username" name="username" placeholder="Username" required>
+
+            <input type="password" class="input-field" id="password" name="password" placeholder="Password" required>
+	    <i class="fa-solid fa-eye" id="show-password"></i>
+            
+            <button type="submit" class="submit-btn" id="loginBtn">LogIn</button>
+        </form>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flashes ">
+                            {% for message in messages %}
+                               <ul style="list-style-type: none;">
+                                 <li class="text-center" style="color: red ;margin-top: 0px;"><b>{{ message[1] }}</b></li>
+                               </ul>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% endwith %}
+    </div>
+</div>
+
+<script>
+  const showPassword = document.querySelector("#show-password");
+  const passwordField = document.querySelector("#password");
+
+  showPassword.addEventListener("click", function() {
+    showPassword.classList.toggle("fa-eye");
+    showPassword.classList.toggle("fa-eye-slash");
+    const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+    passwordField.setAttribute("type", type);
+  });
+</script>
+
+
+
+
+
+{% endblock %}

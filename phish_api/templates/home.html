@@ -1,0 +1,39 @@
+{% extends 'layout.html' %} {% block body %}
+
+<div class="container features" data-aos="fade-up">
+
+  <div class="row">
+    <div class="image col-lg-6" style='background-image: url("static/img/phishing.jpeg");' data-aos="fade-right"></div>
+    <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+      <div class="icon-box mt-5 mt-lg-0" data-aos="zoom-in" data-aos-delay="150">
+        <i class="bx bx-receipt"></i>
+        <h4>What is Phishing?</h4>
+        <p>The first step involves collecting phishing data and preprocessing it to handle missing values, outliers, and
+          inconsistencies.</p>
+      </div>
+      <div class="icon-box mt-5" data-aos="zoom-in" data-aos-delay="150">
+        <i class="bx bx-cube-alt"></i>
+        <h4>Feature Engineering and Model Selection</h4>
+        <p>The second step involves selecting relevant features and transforming them into a format suitable for
+          building a machine learning model, as well as selecting an appropriate algorithm such as Gradient Boosting,
+          KNN, Logistic Regression, Naive Bayes or Random Forest etc.</p>
+      </div>
+      <div class="icon-box mt-5" data-aos="zoom-in" data-aos-delay="150">
+        <i class="bx bx-images"></i>
+        <h4>Model Training and Evaluation</h4>
+        <p>The third step involves training the selected model using the preprocessed data and evaluating its
+          performance using metrics such as accuracy, precision, recall, and F1-score.</p>
+      </div>
+      <div class="icon-box mt-5" data-aos="zoom-in" data-aos-delay="150">
+        <i class="bx bx-shield"></i>
+        <h4>Model Deployment</h4>
+        <p>The final step involves deploying the model in a
+          real-world scenario to classify Phishing domain detection in real-time, allowing for detecting the phishing
+          URL.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

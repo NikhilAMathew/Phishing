@@ -1,0 +1,93 @@
+{% extends 'layout.html' %} {% block body %}
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <p align="center">Report a suspicious site</p>
+        </div>
+
+        <div>
+          <p align="center" >Report any suspicious URLs hosting content, distributing malware, or engaging in other malicious activities for analysis by our classification system. Help us maintain a secure online environment by submiting them here.</p>
+        </div>
+
+<div class="wrapper-box"> 
+
+            <form method="POST" action="{{ url_for('submit_reporturl') }}" onsubmit="return showSuccessAlert();" >
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text"  id="Name" name="Name" class="form-control" placeholder="Enter your name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+
+		  <input type="email"  id="Email" name="Email" class="form-control" placeholder="Enter your valid email address" required>
+                </div>
+
+
+	      </div>
+</div>
+<div class="wrapper-box">
+
+<div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text"  id="Url" name="Url" class="form-control" placeholder="Enter URL/IP of the site" required>
+                </div>
+                <div class="col-md-3 form-group">
+  		<select name="Type" id="Type" required>
+    			<option value="0">Select type</option>
+    			<option value="URL">URL</option>
+    			<option value="IP">IP</option>
+
+  		</select>
+		</div>
+
+		<div class="col-md-3 form-group">
+  		<select name="Category" id="Category" onchange="yesnoCheck(this);" required>
+    			<option value="0">Select category</option>
+    			<option value="Phishing">Phishing</option>
+    			<option value="Suspicious">Suspicious</option>
+    			<option value="Malware">Malware</option>
+    			<option value="Others">Others</option>
+
+  		</select>
+
+                </div>
+
+		<div id="ifYes" style="display: none; margin-top:8px;">
+   			<input type="text" id="Category" name="Category" class="form-control" placeholder="Enter the category">
+		</div>
+
+              <div class="form-group mt-3">
+		<label>Additional URL details (optional) :</label>
+                <textarea id="Message" name="Message" class="form-control" rows="5"></textarea>
+              </div>
+</div>
+
+              <div class="text-center" style="margin-top: 10px;">
+		<button class="get-started-btn" type="submit">Report URL</button>
+	      </div>
+
+            </form>
+
+</div>
+
+      </div>
+
+<script>
+  function showSuccessAlert() {
+    var alertMessage = "URL reported successfully!";
+    alert(alertMessage);
+    return true;
+  }
+
+function yesnoCheck(that) {
+    if (that.value == "Others") {
+        document.getElementById("ifYes").style.display = "block";
+    } else {
+        document.getElementById("ifYes").style.display = "none";
+    }
+}
+
+</script>
+
+
+{% endblock %}

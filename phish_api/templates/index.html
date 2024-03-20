@@ -1,0 +1,148 @@
+{% extends 'layout.html' %} {% block body %}
+
+<!-- ======= Hero Section ======= -->
+
+<section id="hero" class="d-flex align-items-center justify-content-center">
+	<div class="container " data-aos="fade-up">
+
+		<div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+			<div class="col-xl-6 col-lg-8">
+				<h1>Phishing <span class="text"> </span> Detection. </h1>
+				<a href="/report" class="get-started-btn">Report URLs</a>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<!-- End Hero -->
+
+<!-- ======= Features Section ======= -->
+<section id="features" class="features">
+	<div class="container" data-aos="fade-up">
+
+		<div class="row">
+			<div class="image col-lg-6"
+				style='background-image: url("static/img/phishing1.jpg"); border-radius: 60px 15px; box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);'
+				data-aos="zoom-out-left"></div>
+			<div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
+				<div class="icon-box mt-5 mt-lg-0" data-aos="zoom-in" data-aos-delay="150"
+					style="display:block !important;">
+					<i class="bx bx-receipt"></i>
+					<h4 style="font-size:32px;">What is Phishing?</h4>
+					<p>Phishing is the biggest cyber threat for corporate environments in 2021, which can equally affect
+						a company's clients or employees. Phishing occurs when a website hosts a fake login,
+						registration, or sign up form meant to capture the user's account credentials. These pages are
+						usually disguised with a brand's actual site elements, to convince the user it is an official
+						site of that brand. Over billions of dollars are lost annually to phishing attacks, but IPQS can
+						accurately detect phishing domains even when sophisticated fraud techniques are used. Spear
+						phishing is a more targeted form of abuse when the payloads (emails/links) are tailored to match
+						a person's interest.</p>
+				</div>
+
+				<div class="icon-box mt-5" data-aos="zoom-in" data-aos-delay="150" style="display:block !important;">
+					<i class="bx bx-shield"></i>
+					<h4 style="font-size:32px;">Fraud Detection From a Different Angle</h4>
+					<p><strong>FindPhish,</strong> is a real-time URL and website scanner. Once a URL is submitted, our
+						engine spins up an automated headless browser to capture a live screenshot, natural language
+						content on the webpage, DOM, WHOIS, and other essential information. The engine sends this
+						information to multiple deep learning models in the backend that can recognize essential signals
+						like brand logos, sign-in forms, and intent. Our engine then combines these signals with our
+						proprietary threat intel data to identify phishing and scam pages.</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>
+<!-- End Features Section -->
+
+
+
+
+<section id="features" class="features">
+
+	<div class="spacing-50"></div>
+	<div class="row row-homepage-products">
+		<div class="col-sm-4 col-xs-12 text-center " data-aos="fade-up-right">
+			<a href="/inspect" class="homepage-product-wrapper">
+				<div class="homepage-product-icon"><img alt="checkurl" src="static/img/url-search.png" width="60"
+						height="59" loading="lazy" style="filter: drop-shadow(2px 4px 2px gray);"></div>
+				<h3 class="sub2 ubuntu text-regular">URL Scanner — Malware URL Checker</h3>
+				<div class="spacing-25"></div>
+				<p class="product-p">
+					Using the URL checker tool can quickly analyze if a link is suspicious or unsafe. Real-time scanning
+					of malicious links is best if your goal is to block malware or prevent phishing link clicks.
+					Real-time content analysis identifies malicious code and malicious links directly embedded on a
+					website. Quicker URL scanning detection rates provide support for zero-day phishing links and newly
+					compromised domains used as malicious websites.
+				</p>
+				<span class="btn get-started-btn"><span>Explore</span></span>
+			</a>
+		</div>
+		<div class="col-sm-4 col-xs-12 text-center" data-aos="fade-up">
+			<a href="/checkip" class="homepage-product-wrapper">
+				<div class="homepage-product-icon"><img alt="checkip" src="static/img/ip-address.png" width="60"
+						height="59" loading="lazy" style="filter: drop-shadow(2px 4px 2px gray);"></div>
+				<h3 class="sub2 ubuntu text-regular">IP Address Lookup</h3>
+				<div class="spacing-25"></div>
+				<p class="product-p">
+					IP lookup details also provide an IP address Fraud Score and overall risk analysis to determine how
+					likely an active user on this IP address is to engage in abusive behavior. IPQS' vast threat network
+					provides greater hits for abusive behavior, which produces intelligent IP risk scores that identify
+					bad users, risky payments, and bots. Easily detect proxies and malicious behavior signals.
+				</p>
+				<span class="btn get-started-btn"><span>Explore</span></span>
+			</a>
+		</div>
+		<div class="col-sm-4 col-xs-12 text-center" data-aos="fade-up-left">
+			<a href="/download" class="homepage-product-wrapper">
+				<div class="homepage-product-icon"><img alt="bot" src="static/img/web-plugin.png" width="60" height="59"
+						loading="lazy" style="filter: drop-shadow(2px 4px 2px gray);"></div>
+				<h3 class="sub2 ubuntu text-regular">AI enabled phishing detection plugin</h3>
+				<div class="spacing-25"></div>
+				<p class="product-p">
+					We can provide an additional layer of security and protection attacks across various digital
+					channels, we can provide an additional layer of security and protection. Ultimately, the goal of
+					developing a solution like this is to empower individuals and organixations to protect themselves
+					from phishing attacks and minimize the risk of data breaches, financial loss, and other negative
+					consequences.</u>.
+				</p>
+				<span class="btn get-started-btn"><span>Explore</span></span>
+			</a>
+		</div>
+
+	</div>
+</section>
+<div class="spacing-50"></div>
+<div class="spacing-50"></div>
+
+
+<script src="static/js/scramble.js"></script>
+<script>
+	$SCRIPT_ROOT = {{ request.script_root | tojson }};
+</script>
+
+<script>
+
+
+	const phrases = ['Domain.', 'URL.', 'http://', 'IP.', '192.168.1.1'];
+	const el = document.querySelector('.text');
+	const fx = new TextScramble(el);
+	let counter = 0;
+
+	const next = () => {
+		fx.setText(phrases[counter]).then(() => {
+			setTimeout(next, 800);
+		});
+		counter = (counter + 1) % phrases.length;
+	};
+
+	next();
+</script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/chat.js') }}"></script>
+
+
+
+{% endblock %}

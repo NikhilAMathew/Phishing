@@ -1,0 +1,129 @@
+{% extends 'layout.html' %} {% block body %}
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
+
+<style>
+.card {
+  border-radius: 30px;
+  border: 0;
+}
+h3 {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  margin-left: 40px;
+  margin-top: 20px;
+}
+
+.items2 {
+    display: flex;
+    justify-content: space-between; 
+    max-width: 1130px; 
+    margin: 0 auto; 
+  }
+
+  .item2 {
+    text-align: center;
+    background-color: #E5E4E2;
+    border-radius: 0%;
+    overflow: hidden;
+    width: 500px;
+    height: 100px; 
+  }
+
+  .line2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .count {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  
+  .download {
+    margin-right: 30px;
+  }
+
+</style>
+<div class="container">
+        <div class="main features" data-aos="fade-in">
+
+           <div class="main-content">
+
+                <div class="content">
+                    <div class="items">
+                        <div class="item">
+                            <div class="heading">
+                                <h3 align="center">History</h3>
+                                <a href="static/malicious_phish.csv" class="download get-started-btn"> <ion-icon name="cloud-download-outline"></ion-icon> Download .csv</a>
+                            </div>
+
+                            <div class="items2" data-aos="zoom-out">
+                              <div class="item2">
+                                  <div class="line2">
+                                      <h2 class="count">{{ type_counts['URL'] }}</h2>
+                                      <span class="icon"><i class="fa-solid fa-link"></i></span>
+                                  </div>
+                                  <span class="desc">URL</span>
+                              </div>
+                              <div class="item2">
+                                  <div class="line2">
+                                      <h2 class="count">{{ type_counts['Domain'] }}</h2>
+                                      <span class="icon"><i class="fa-solid fa-globe"></i></span>
+                                  </div>
+                                  <span class="desc">Domains</span>
+                              </div>
+                              <div class="item2">
+                                  <div class="line2">
+                                      <h2 class="count">{{ type_counts['IP'] }}</h2>
+                                      <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+                                  </div>
+                                  <span class="desc">IP</span>
+                              </div>
+    
+                          </div>
+
+   <div class="card-form" data-aos="fade-up">
+      <div class="col-sm py-2 py-md-3">
+        <div class="card card-body mx-auto" style="justify-content: center;">
+
+          <table id="example" class="table table-striped">
+            <thead class="thead-white">
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Value</th>
+                <th scope="col">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for row in data_csv %}
+            <tr>
+                <td>{{ row['date'] }}</td>
+                <td>{{ row['type'] }}</td>
+                <td>{{ row['value'] }}</td>
+                <td>{{ row['category'] }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+<script>
+let table = new DataTable('#example');
+</script>
+
+{% endblock %}

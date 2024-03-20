@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "FindPhish",
+  "version": "2.2",
+  "description": "FindPhish provides robust, real-time protection against phishing threats, ensuring safe browsing and enhanced internet security.",
+  "permissions": [
+    "tabs",
+    "webNavigation",
+    "activeTab",
+    "notifications",
+    "storage",
+    "declarativeNetRequest",
+    "scripting"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+	{
+	    "id": "ruleset_1",
+	    "enabled": true,
+	    "path": "extension/rules.json"
+	}
+    ]
+  },
+  "host_permissions": [
+    "http://127.0.0.1:5000/",
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "extension/background.js"
+  },
+  "action": {
+    "default_popup": "extension/popup.html",
+    "default_icon": "extension/icons/16x16.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "icons": {
+    "16": "extension/icons/16x16.png",
+    "48": "extension/icons/48x48.png",
+    "128": "extension/icons/128x128.png"
+  },
+  "content_scripts": [
+     { 
+       "js": ["extension/content.js"],
+       "run_at": "document_start",
+       "matches": ["https://*/*","http://*/*"]
+     },
+     { 
+       "js": ["extension/gl_scan.js"],
+       "run_at": "document_end",
+       "matches": ["https://*.google.com/search*"]
+     }
+   ],
+  "web_accessible_resources":[{
+   "resources": ["extension/icons/tick.png" , "extension/icons/cross.png"],
+   "matches": ["https://*.google.com/*"]}]
+}

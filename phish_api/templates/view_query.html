@@ -1,0 +1,52 @@
+{% extends 'admin_layout.html' %}
+{% block body %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<style>
+.card {
+box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+}
+</style>
+
+
+<div class="container features" data-aos="fade-up">
+<h1 align="center" style="margin-bottom:8px;">Admin - User Queries</h1>
+   <div class="card-form">
+      <div class="col-sm py-2 py-md-3">
+        <div class="card card-body mx-auto" style="justify-content: center;">
+          <table class="table table-striped ">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Message</th>
+                <th scope="col">Timestamp</th>
+                <th scope="col">Reply</th>
+  
+              </tr>
+            </thead>
+            <tbody>
+              {% for query in data %}
+                <tr>
+                  <th scope="row">{{ query.serial }}</th>
+                  <td>{{ query.name }}</td>
+                  <td>{{ query.email }}</td>
+                  <td>{{ query.message }}</td>
+                  <td>{{ query.date }}, {{ query.time }}</td>
+                  <td>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to={{ query.email }}&su=Reply%20to%20your%20query:%20{{ query.message }}" class="btn get-started-btn reply-button"> <i class="fa-solid fa-reply"></i> Reply</a>
+                  </td>
+  
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+{% endblock %}
