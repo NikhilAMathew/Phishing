@@ -1,5 +1,3 @@
-### **NB: Still working on it 
-
 <h1 align="center"> <img src="assets/favicon.png" alt="icon" width="25" height="25" /> FindPhish: Phishing Detection System </h1>
 
 This phishing detection system using State-of-the-Art Artificial Intelligence and Machine Learning and this extension aims to detect phishing websites and warn the user. It is built with a objective of privacy, so that the extension is developed to protect users from potential phishing attacks. With the Anti-Phishing Extension, users can easily check the safety of the websites they visit.
