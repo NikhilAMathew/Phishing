@@ -88,8 +88,12 @@ The Phishing Detection Website is designed to provide user to know about the URL
 
 ## Usage
 
-Once the Extension is successfully installed, it will be active in your browser. The websites you visit will be automatically scanned, and you will receive alerts if a website is on the blacklist.
+Run a flask server in the folder `phish_api/`
+   ```sh
+   python app.py
+   ```
+Once the Extension is successfully installed, it will be active in your browser. The websites you visit will be automatically scanned, and you will receive alerts if a website is phishing.
 
 ## Contact
 
-If you have any questions about our project, you can reach us at: [mathewnikhil432@gmail.com](mailto:mathewnikhil432@gmail.com)
+If you have any questions about my project, you can reach me at: [mathewnikhil432@gmail.com](mailto:mathewnikhil432@gmail.com)
