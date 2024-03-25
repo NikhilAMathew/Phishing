@@ -92,7 +92,7 @@ Run a flask server in the folder `phish_api/`
    ```sh
    python app.py
    ```
-Once the Extension is successfully installed, it will be active in your browser. The websites you visit will be automatically scanned, and you will receive alerts if a website is phishing.
+
 
 ## Contact
 
