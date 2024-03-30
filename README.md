@@ -68,8 +68,8 @@ The Phishing Detection Website is designed to provide user to know about the URL
 <details>
    <summary>Directory Structure</summary>
 
-- `frontend/`: This directory contains the source code for the Chrome extension.
-- `phish_api/`: This directory holds the source code for the phishing detectiong website.
+- `frontend/`: This directory holds the source code for the Chrome extension.
+- `phish_api/`: This directory holds the source code for the backend of the extension and Phishing detection website.
 </details>
 
 <details>
