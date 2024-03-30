@@ -8,25 +8,20 @@ This phishing detection system using State-of-the-Art Artificial Intelligence an
 [![Project](https://img.shields.io/badge/Project-*working-orange.svg?style=flat)](https://github.com/NikhilAMathew/Phishing)
 [![Documentation](https://img.shields.io/badge/Documentation-*working-orange.svg?style=flat)](https://github.com/NikhilAMathew/Phishing)
 
-## Table of Contents
+<details>
+   <summary>Features</summary>
 
-1. [Features](#features)
-2. [Extension Overview](#extension-overview)
-3. [Webpage Overview](#webpage-overview)
-4. [Directory Structure](#directory-structure)
-5. [Installation](#installation)
-   - [Manually](#manually)
-6. [Usage](#usage)
-7. [Contact](#contact)
-
-## Features
-
-- **Real-Time Website Scanning**: The Extension scans the websites visited by the user in real-time.
-- **Real-Time User Notifications**: The Extension alerts the users through the email and chrome notifications when the visited website is phishing in real-time.
+- **Real-Time Website Scanning**: The extension scans the websites visited by the user in real-time.
+- **Real-Time User Notifications**: The extension alerts the users through the email and chrome notifications when the visited website is phishing in real-time.
 - **User Customizable Settings**: The user can activate/deactivate the toggle buttons for various features.
-and so more features**
+- **Web Analytics**: The extension scan the website to found malicious activities.
+- **The extension uses threat database from site-advisor to detect and block websites.**
+- **Performs static analysis.**
+- **Uses caching to reduce time by saving the status/verdict of last check.**
+</details>
 
-## Extension Overview
+<details>
+   <summary>Extension Overview</summary>
 
 <img src="assets/extension_home.png" alt="extension-home" />
 The Anti-Phishing Extension is designed to serve as a primary defense line against malicious phishing websites for users. Incorporating a mix of real-time website scanning and an updated blacklist check, the extension strives to provide a seamless and secure browsing experience.
@@ -46,9 +41,11 @@ The Anti-Phishing Extension is designed to serve as a primary defense line again
 3. **Active/Inactive Toggle:**
    - The extension comes with a toggle button allowing users to activate or deactivate its functionality as per their needs.
    - By toggling the extension to the inactive state, it will cease its scanning and alert processes until reactivated.
+</details>
 
 
-## Webpage Overview
+<details>
+   <summary>Webpage Overview</summary>
 
 <img src="assets/webpage_home.png" alt="webpage-home" />
 The Phishing Detection Website is designed to provide user to know about the URL/IP with all details and users can report the phishing, malcious or suspicious URL/IP.
@@ -65,15 +62,18 @@ The Phishing Detection Website is designed to provide user to know about the URL
    
 3. **User Queries:**
    - The users can directly contact with the experts who are related to cyber security.
+</details>
 
 
-## Directory Structure
+<details>
+   <summary>Directory Structure</summary>
 
 - `frontend/`: This directory contains the source code for the Chrome extension.
 - `phish_api/`: This directory holds the source code for the phishing detectiong website.
+</details>
 
-
-## Installation
+<details>
+   <summary>Installation</summary>
 
 ### Manually
 
@@ -85,14 +85,18 @@ The Phishing Detection Website is designed to provide user to know about the URL
 3. Enable "Developer mode" in the top right corner.
 4. Click on "Load unpacked" and select the `frontend/` directory from the cloned repository.
 5. The Extension should now be installed and active in your browser.
+</details>
 
-## Usage
 
+<details>
+   <summary>Usage</summary>
+   
 Run a flask server in the folder `phish_api/`
    ```sh
    python app.py
    ```
 Once the Extension is successfully installed, it will be active in your browser. The websites you visit will be automatically scanned, and you will receive alerts if a website is phishing.
+</details>
 
 ## Contact
 
