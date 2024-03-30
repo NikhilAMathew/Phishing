@@ -1,18 +1,23 @@
-## **NB: Still working on it 
-
-# FindPhish: Phishing Detection System
+<h1 align="center"> <img src="assets/favicon.png" alt="icon" width="25" height="25" /> FindPhish: Phishing Detection System </h1>
 
 This phishing detection system using State-of-the-Art Artificial Intelligence and Machine Learning and this extension aims to detect phishing websites and warn the user. It is built with a objective of privacy, so that the extension is developed to protect users from potential phishing attacks. With the Anti-Phishing Extension, users can easily check the safety of the websites they visit.
+
+![OS](https://img.shields.io/badge/OS-Windows-green?style=flat&logo=Windows)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python%203.10-green.svg?logo=python)](https://www.python.org/)
+[![framework](https://img.shields.io/badge/Framework-Flask%202.3-blue.svg?logo=flask)](https://flask.palletsprojects.com/en/3.0.x/)
+[![Project](https://img.shields.io/badge/Project-*working-orange.svg?style=flat)](https://github.com/NikhilAMathew/Phishing)
+[![Documentation](https://img.shields.io/badge/Documentation-*working-orange.svg?style=flat)](https://github.com/NikhilAMathew/Phishing)
 
 ## Table of Contents
 
 1. [Features](#features)
 2. [Extension Overview](#extension-overview)
-3. [Directory Structure](#directory-structure)
-4. [Installation](#installation)
+3. [Webpage Overview](#webpage-overview)
+4. [Directory Structure](#directory-structure)
+5. [Installation](#installation)
    - [Manually](#manually)
-5. [Usage](#usage)
-6. [Contact](#contact)
+6. [Usage](#usage)
+7. [Contact](#contact)
 
 ## Features
 
@@ -23,6 +28,7 @@ and so more features**
 
 ## Extension Overview
 
+<img src="assets/extension_home.png" alt="extension-home" />
 The Anti-Phishing Extension is designed to serve as a primary defense line against malicious phishing websites for users. Incorporating a mix of real-time website scanning and an updated blacklist check, the extension strives to provide a seamless and secure browsing experience.
 
 ### How it Works
@@ -34,14 +40,32 @@ The Anti-Phishing Extension is designed to serve as a primary defense line again
 2. **User Notification and Blockage:**
    - Should the website be flagged as suspicious, an overlay alert system is activated. This overlay will cover the entire website, preventing the user from interacting with potentially harmful content.
    - This ensures that users do not accidentally engage in potentially harmful activities, such as interacting with fake crypto wallets or entering sensitive information like credit card details.
-
-   ![Overlay Alert Image](image-url)
+   
+   <img src="assets/warning.png" alt="warning-page" />
    
 3. **Active/Inactive Toggle:**
    - The extension comes with a toggle button allowing users to activate or deactivate its functionality as per their needs.
    - By toggling the extension to the inactive state, it will cease its scanning and alert processes until reactivated.
 
-   ![Toggle Button Image](image-url)
+
+## Webpage Overview
+
+<img src="assets/webpage_home.png" alt="webpage-home" />
+The Phishing Detection Website is designed to provide user to know about the URL/IP with all details and users can report the phishing, malcious or suspicious URL/IP.
+
+
+### How it Works
+
+1. **Checking URL/IP:** 
+   - Users can get all the detail about URL/IP by simply inputing the URL/IP addresses.
+   - The details can be helpfull to prevent the users from interacting with potentially harmful content.
+
+2. **Reporting Domains:**
+   - Users can report or blacklist the various domains like URL/IP which phishing, malicious or suspicious.
+   
+3. **User Queries:**
+   - The users can directly contact with the experts who are related to cyber security.
+
 
 ## Directory Structure
 
@@ -64,8 +88,12 @@ The Anti-Phishing Extension is designed to serve as a primary defense line again
 
 ## Usage
 
-Once the Extension is successfully installed, it will be active in your browser. The websites you visit will be automatically scanned, and you will receive alerts if a website is on the blacklist.
+Run a flask server in the folder `phish_api/`
+   ```sh
+   python app.py
+   ```
+Once the Extension is successfully installed, it will be active in your browser. The websites you visit will be automatically scanned, and you will receive alerts if a website is phishing.
 
 ## Contact
 
-If you have any questions about our project, you can reach us at: [mathewnikhil432@gmail.com](mailto:mathewnikhil432@gmail.com)
+If you have any questions about my project, you can reach me at: [mathewnikhil432@gmail.com](mailto:mathewnikhil432@gmail.com)
