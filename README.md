@@ -5,7 +5,7 @@ This phishing detection system using State-of-the-Art Artificial Intelligence an
 ![OS](https://img.shields.io/badge/OS-Windows-green?style=flat&logo=Windows)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python%203.10-green.svg?logo=python)](https://www.python.org/)
 [![framework](https://img.shields.io/badge/Framework-Flask%202.3-blue.svg?logo=flask)](https://flask.palletsprojects.com/en/3.0.x/)
-[![Project](https://img.shields.io/badge/Project-*completed-green.svg?style=flat)](https://github.com/NikhilAMathew/Phishing)
+[![Project](https://img.shields.io/badge/Project-completed-green.svg?style=flat)](https://github.com/NikhilAMathew/Phishing)
 [![Documentation](https://img.shields.io/badge/Documentation-*working-orange.svg?style=flat)](https://github.com/NikhilAMathew/Phishing)
 
 <details>
