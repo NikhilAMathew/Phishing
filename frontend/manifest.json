@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "FindPhish",
-  "version": "2.2",
+  "version": "2.4",
   "description": "FindPhish provides robust, real-time protection against phishing threats, ensuring safe browsing and enhanced internet security.",
   "permissions": [
     "tabs",
@@ -10,7 +10,8 @@
     "notifications",
     "storage",
     "declarativeNetRequest",
-    "scripting"
+    "scripting",
+    "webRequest"
   ],
   "declarative_net_request": {
     "rule_resources": [

@@ -344,4 +344,3 @@ chrome.storage.local.get(['run_day'], function(result) {
   console.log(err);
 }
 
-

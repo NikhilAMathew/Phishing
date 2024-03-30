@@ -1,225 +1,139 @@
-// const fetchDocumentData = () => {
-  document.getElementById("report-btn").onclick = () => {
-    console.log("onclick")
-  chrome.runtime.sendMessage({ method: "clear" }, () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.scripting.executeScript(
-        {
-          target: { tabId: tabs[0].id },
-          function: getDocumentInfo,
-        },
-        () => {
-          if (chrome.runtime.lastError) {
-            document.getElementById("base-url").value =
-              "Error: " + chrome.runtime.lastError.message;
-          } else {
-            chrome.runtime.sendMessage({ method: "get" }, (response) => {
-              console.log("going to dataToPopup")
-              dataToPopup(response);
-            });
-          }
-        }
-      );
-    });
-  });
-};
+document.addEventListener("DOMContentLoaded", function() {
+  // Function to fetch details
+  const fetchDetails = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      const tab = tabs[0];
 
-// fetchDocumentData();
+      const details = {};
 
-// Detecting XSS
-function detectXSS() {
-  const scripts = document.querySelectorAll("script");
-  const suspiciousScripts = [];
+      details.url = tab.url;
 
-  scripts.forEach(script => {
-    const scriptContent = script.textContent.trim();
-    if (scriptContent.includes("<script") || scriptContent.includes("javascript:")) {
-      suspiciousScripts.push(script);
-    }
-  });
+      details.domain = new URL(tab.url).hostname;;
+      details.date = new Date().toLocaleString();
 
-  return suspiciousScripts;
-}
+      let ssl = tab.url.startsWith("https://")
 
-async function getDocumentInfo() {
+      const safetyInfo = {};
 
-  console.log("getDocumentInfo")
+      // Check for Mixed Content
+      safetyInfo.mixedContent = document.querySelectorAll("[src^='http://']").length > 0 ? "Found" : "None";
 
-  // get performance parameters
-  const getPerformance = () => {
-    try {
-      let perfObject = {};
+      // Check for Content Security Policy (CSP)
+      safetyInfo.csp = document.querySelector("meta[http-equiv='Content-Security-Policy']") ? "Enabled" : "Disabled";
+
+      // Check for Subresource Integrity (SRI)
+      safetyInfo.sri = document.querySelectorAll("[integrity]").length > 0 ? "Enabled" : "Disabled";
+
+      // Check for Permissions
+      safetyInfo.permissions = navigator.permissions ? "Supported" : "Not Supported";
+
+      // Check for Third-Party Scripts
+      safetyInfo.thirdPartyScripts = !!document.querySelector("script[src^='https://cdnjs.cloudflare.com']") ? "Used" : "Not Used";
+
+      // Check for Anti-Phishing Measures
+      safetyInfo.antiPhishing = location.href.includes("https://") ? "Secure" : "Potentially Insecure";
+
+      const performanceData = {};
       let { timing, timeOrigin } = JSON.parse(JSON.stringify(window.performance));
-      perfObject.domCompleted = (timing.domComplete - timeOrigin)/1000; // ms to s
-      perfObject.connectTime = (timing.connectEnd - timing.connectStart)/1000; //ms to s
-      perfObject.domContentEvent = (timing.domContentLoadedEventEnd - timing.domContentLoadedEventStart)/1000; //ms to s
-      perfObject.responseTime = (timing.responseEnd - timing.requestStart)/1000; // ms to s
-      perfObject.unloadEvent = (timing.unloadEventEnd - timing.unloadEventStart)/1000; // ms to s
-      perfObject.domInteractive = (timing.domInteractive - timeOrigin)/1000; // ms to s
-      perfObject.redirectTime = (timing.redirectEnd - timing.redirectStart)/1000; // ms to s
 
-      return perfObject;
-    } catch (error) {
-      return error;
-    }
-  }
+      performanceData.domCompleted = (timing.domComplete - timeOrigin)/1000; // ms to s
+      performanceData.connectTime = (timing.connectEnd - timing.connectStart)/1000; //ms to s
+      performanceData.domContentEvent = (timing.domContentLoadedEventEnd - timing.domContentLoadedEventStart)/1000; //ms to s
+      performanceData.responseTime = (timing.responseEnd - timing.requestStart)/1000; // ms to s
+      performanceData.unloadEvent = (timing.unloadEventEnd - timing.unloadEventStart)/1000; // ms to s
+      performanceData.domInteractive = (timing.domInteractive - timeOrigin)/1000; // ms to s
+      performanceData.redirectTime = (timing.redirectEnd - timing.redirectStart)/1000; // ms to s
 
-  // const getImageAltText = () => {
-  //   try {
-  //     let imagesWithoutAlt = [];
-  //     let nodeList = document.getElementsByTagName("img");
-  //     let totalImages = nodeList.length;
-
-  //     for (let i = 0; i < nodeList.length; i++)
-  //     {
-  //       let altText = nodeList[i].alt.length > 0 ? true : false;
-  //       if(!altText) {
-  //         imagesWithoutAlt.push(nodeList[i].src)
-  //       }
-  //     }
-
-  //     return { totalImages, imagesWithoutAlt };
-  //   } catch (error) {
-  //     return false;
-  //   }
-  // }
-
-  const getOGTags = () => {
-    try {
-      let ogTags = false;
-      let nodeList = document.querySelectorAll("meta[property]");
-
-      for (let i = 0; i < nodeList.length; i++)
-      {
-        let isOgTag = nodeList[i].getAttribute('property').includes('og');
-        if(isOgTag) {
-          ogTags = true;
-        }
-      }
-
-      return ogTags;
-    } catch (error) {
-      return false;
-    }
-  }
-
-  const getSSL = () => {
-    try {
-      let content = document.location.protocol
-      let included = content.includes('https');
-
-      if(included) return true;
-      else return false;
-    } catch (error) {
-      return false;
-    }
-  }
-
-  // Performance Parameter
-  let performanceObject = getPerformance();
-
-  console.log({performanceObject});
-
-  // Base URL
-  let baseUrl = document.baseURI;
-
-  // // Alt Text of Images
-  // let images = getImageAltText();
-
-  // Open Graph Tags
-  let ogTags = getOGTags();
-
-  // SSL Certificate
-  let ssl = getSSL();
-
-  // domain 
-  let domain = document.domain;
-
-  let keyPoints = { performanceObject, ssl, ogTags, domain }
-
-  let dataObject = { baseUrl, keyPoints }
-
-  console.log("dataObject")
-
-  chrome.runtime.sendMessage({ method: "set", value: dataObject }, () => {});
-}
-
-function dataToPopup(response) {
-
-  const { keyPoints, baseUrl } = response.value;
-
-  console.log("datatopopup")
-
-  // document.getElementById("report-btn").style.display = "none";
-  // document.getElementById("main-wrapper").style.display = "block";
-  // document.getElementById("logo").style.marginTop = "5%";
-  // document.getElementById("logo").style.marginBottom = "5%";
-
-  document.getElementById("base-url").innerHTML = baseUrl;
-
-  // Detect XSS vulnerabilities and display them
-  const detectedXSS = detectXSS();
-  if (detectedXSS.length > 0) {
-    const xssList = document.createElement("ul");
-    detectedXSS.forEach(script => {
-      const listItem = document.createElement("li");
-      listItem.textContent = script.outerHTML;
-      xssList.appendChild(listItem);
+      displayDetails(details, ssl, safetyInfo, performanceData);
     });
-    document.getElementById("detected-xss").classList.add("error-mark")
-    document.getElementById("detected-xss").appendChild(xssList);
-  } else {
-    document.getElementById("detected-xss").classList.add("success-mark")
-    document.getElementById("detected-xss").textContent = "No malicious script vulnerabilities detected.";
-  }
+  };
 
-  // Images without alt text
-  // document.getElementById("site-alt-text").innerHTML = keyPoints.images.totalImages;
-  // if(keyPoints.images.imagesWithoutAlt.length > 0) {
-  //   document.getElementById('images-withuot-alt').classList.add("error-mark")
-  //   document.getElementById("images-withuot-alt").innerHTML = keyPoints.images.imagesWithoutAlt.length + " ALT attributes are empty or missing.";
 
-  //   const div = document.getElementById('images-withuot-alt');
-  //   const ul = document.createElement("ul");
-  //   ul.setAttribute("id", "image-list");
 
-  //   for (let i = 0; i < keyPoints.images.imagesWithoutAlt.length; i++) {
-  //     const li = document.createElement("li");
-  //     li.innerHTML = keyPoints.images.imagesWithoutAlt[i];
-  //     li.setAttribute("class", "image-list-item")
-  //     ul.appendChild(li);
-  //   }
+  // Function to display details
+  const displayDetails = (details, ssl, safetyInfo, performanceData) => {
 
-  //   div.appendChild(ul);
+    document.getElementById("domain").textContent = details.domain;
+    document.getElementById("url").textContent = details.url;
+    document.getElementById("date").textContent = details.date;
 
-  // } else {
-  //   document.getElementById('images-withuot-alt').classList.add("success-mark")
-  //   document.getElementById("images-withuot-alt").innerHTML =  "Good, Every images have alt attributes.";
-  // }
+    if (!ssl) {
+      document.getElementById("sslInfo").classList.add("error-mark")
+      document.getElementById("sslInfo").innerHTML = "Oops, Your website has not been SSL enabled.";
+    } else {
+      document.getElementById("sslInfo").classList.add("success-mark")
+      document.getElementById("sslInfo").innerHTML = "You are viewing SSL enabled website.";
+    }
 
-  // SSL Enabled
-  if (keyPoints.ssl) {
-    document.getElementById("site-ssl").classList.add("success-mark")
-    document.getElementById("site-ssl").innerHTML = "You are viewing SSL enabled website.";
-  } else {
-    document.getElementById("site-ssl").classList.add("error-mark")
-    document.getElementById("site-ssl").innerHTML = "Oops, Your website has not been SSL enabled.";
-  }
+    if(safetyInfo.mixedContent == "None") {
+      document.getElementById("mixedContent").classList.add("success-mark")
+      document.getElementById("mixedContent").innerHTML = " Website doesnt have mixed contents";
+    }
+    else {
+      document.getElementById("mixedContent").classList.add("warning-mark")
+      document.getElementById("mixedContent").innerHTML = " Contains mixed contents(such as images, stylesheets, etc.)";
+    } 
 
-  document.getElementById("site-domain").innerHTML = keyPoints.domain;
-  let date = new Date();
-  document.getElementById("current-date").innerHTML = date.toLocaleString();
+    if(safetyInfo.csp == "Enabled") {
+      document.getElementById("csp").classList.add("success-mark")
+      document.getElementById("csp").innerHTML = " CSP header enabled";
+    }
+    else {
+      document.getElementById("csp").classList.add("warning-mark")
+      document.getElementById("csp").innerHTML = " CSP header not enabled";
+    }
 
-  // Performance Matrix
-  if(keyPoints.performanceObject) {
-    const { performanceObject } = keyPoints;
-    document.getElementById("performance-dom-completed").innerHTML = performanceObject.domCompleted + "s";
-    document.getElementById("performance-connect-time").innerHTML = performanceObject.connectTime + "s";
-    document.getElementById("performance-dom-content").innerHTML = performanceObject.domContentEvent + "s";
-    document.getElementById("performance-response-time").innerHTML = performanceObject.responseTime + "s";
-    document.getElementById("performance-unload-event").innerHTML = performanceObject.unloadEvent + "s";
-    document.getElementById("performance-dom-interactive").innerHTML = performanceObject.domInteractive + "s";
-    document.getElementById("performance-redirect-time").innerHTML = performanceObject.redirectTime + "s";
-  }
-}
+    if(safetyInfo.sri == "Enabled") {
+      document.getElementById("sri").classList.add("success-mark")
+      document.getElementById("sri").innerHTML = " Subresource Integrity enabled";
+    }
+    else {
+      document.getElementById("sri").classList.add("warning-mark")
+      document.getElementById("sri").innerHTML = " Subresource Integrity not enabled";
+    }
 
+    if(safetyInfo.permissions == "Supported") {
+      document.getElementById("permissions").classList.add("success-mark")
+      document.getElementById("permissions").innerHTML = "Website supports querying permissions";
+    }
+    else {
+      document.getElementById("permissions").classList.add("warning-mark")
+      document.getElementById("permissions").innerHTML = "Website does not support querying permissions";
+    }
+
+    if(safetyInfo.thirdPartyScripts == "Not Used") {
+      document.getElementById("thirdPartyScripts").classList.add("success-mark")
+      document.getElementById("thirdPartyScripts").innerHTML = "No third party scripts used";
+    }
+    else {
+      document.getElementById("thirdPartyScripts").classList.add("warning-mark")
+      document.getElementById("thirdPartyScripts").innerHTML = "Third party scripts found";
+    }
+
+    if(safetyInfo.antiPhishing == "Secure") {
+      document.getElementById("antiPhishing").classList.add("success-mark")
+      document.getElementById("antiPhishing").innerHTML = "Anti-Phishing enabled website";
+    }
+    else {
+      document.getElementById("antiPhishing").classList.add("warning-mark")
+      document.getElementById("antiPhishing").innerHTML = "Website may potentially Insecure";
+    }
+
+    document.getElementById("performance-dom-completed").innerHTML = performanceData.domCompleted + "s";
+    document.getElementById("performance-connect-time").innerHTML = performanceData.connectTime + "s";
+    document.getElementById("performance-dom-content").innerHTML = performanceData.domContentEvent + "s";
+    document.getElementById("performance-response-time").innerHTML = performanceData.responseTime + "s";
+    document.getElementById("performance-unload-event").innerHTML = performanceData.unloadEvent + "s";
+    document.getElementById("performance-dom-interactive").innerHTML = performanceData.domInteractive + "s";
+    document.getElementById("performance-redirect-time").innerHTML = performanceData.redirectTime + "s";
+
+  };
+
+  // Function to handle report button click
+  const handleReportButtonClick = () => {
+    fetchDetails();
+  };
+
+  // Attach click event listener to report button
+  document.getElementById("report-btn").addEventListener("click", handleReportButtonClick);
+});

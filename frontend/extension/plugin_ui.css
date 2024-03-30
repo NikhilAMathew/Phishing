@@ -400,10 +400,8 @@ input[type="radio"] {
 
 .warning-mark::before {
   content: "\26A0";
-  background: orange;
-  padding: 0px 5px;
-  font-size: 11px;
-  margin-right: 7px;
+  color: orange;
+  font-size: 14px;
 }
 
 .error-mark::before {

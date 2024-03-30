@@ -74,7 +74,7 @@ if(!domain.includes("google.com/search")){
 
       var infoPara = document.createElement("p");
       infoPara.setAttribute("id", "myPara");
-      infoPara.textContent = "You were protected from visiting this website by Malware Protection Extension.";
+      infoPara.textContent = "You were protected from visiting this website by FindPhish Extension.";
 
       var p3 = document.createElement("p");
       p3.setAttribute("id", "myPara3");

@@ -316,13 +316,14 @@
   margin-left: 72px;
   width: 258px;
   flex-direction: column;
+  font-size: 12px;
   line-height: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;">
 
-      <p id="base-url"></p>
-      <p id="current-date"></p>
+      <p id="url"></p>
+      <p id="date"></p>
     </div>
 
     <div id="main-wrapper">
@@ -330,7 +331,7 @@
       <div class="card_body">
         <div class="row score-row">
           <div class="col-2" id="site-domain-name">Domain</div>
-          <div class="col-2" id="site-domain"></div>
+          <div class="col-2" id="domain"></div>
         </div>
       </div>
 
@@ -339,12 +340,33 @@
           <h3 id="card-title" class="card-title">Analytics</h3>
 
           <div class="row score-row">
-            <div class="col-2" id="detected-xss"></div>
+            <div class="col-2" id="sslInfo"></div>
           </div>
 
           <div class="row score-row">
-            <div class="col-2" id="site-ssl"></div>
+            <div class="col-2" id="antiPhishing"></div>
           </div>
+
+          <div class="row score-row">
+            <div class="col-2" id="mixedContent"></div>
+          </div>
+
+          <div class="row score-row">
+            <div class="col-2" id="csp"></div>
+          </div>
+
+          <div class="row score-row">
+            <div class="col-2" id="sri"></div>
+          </div>
+
+          <div class="row score-row">
+            <div class="col-2" id="thirdPartyScripts"></div>
+          </div>
+
+          <div class="row score-row">
+            <div class="col-2" id="permissions"></div>
+          </div>
+
         </div>
       </div>
 
@@ -393,7 +415,7 @@
 
 
   <script src="popup.js"></script>
-  <!-- <script src="analyse.js"></script> -->
+  <script src="analyse.js"></script>
 </body>
 
 </html>
