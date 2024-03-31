@@ -2398,3 +2398,25 @@ select {
   text-transform: capitalize;
   cursor: pointer;
 }
+
+.captchaBtn {
+  color: #fff;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 18px;
+  display: inline-block;
+  border: 2px solid #71797E;
+  background: #36454F;
+  padding: 3px 10px;
+}
+
+.captcha {
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  letter-spacing: 8px;
+  background-color: #555;
+}
