@@ -121,6 +121,7 @@ def check_url():
 
     # Process the URL
     features = extract_features(url).numpy()
+    print(features)
     probability = prob(features)
 
     decision = get_class(probability)
