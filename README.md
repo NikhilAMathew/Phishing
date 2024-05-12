@@ -14,8 +14,6 @@ This phishing detection system using State-of-the-Art Artificial Intelligence an
 - **Real-Time Website Scanning**: The extension scans the websites visited by the user in real-time.
 - **Real-Time User Notifications**: The extension alerts the users through the email and chrome notifications when the visited website is phishing in real-time.
 - **User Customizable Settings**: The user can activate/deactivate the toggle buttons for various features.
-- **Web Analytics**: The extension scan the website to found malicious activities.
-- **The extension uses threat database from site-advisor to detect and block websites.**
 - **Performs static analysis.**
 - **Uses caching to reduce time by saving the status/verdict of last check.**
 </details>
